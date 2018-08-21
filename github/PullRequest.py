@@ -533,14 +533,15 @@ class PullRequest(github.GithubObject.CompletableGithubObject):
         )
         return github.PullRequestComment.PullRequestComment(self._requester, headers, data, completed=True)
 
-    def get_comments(self):
+    def get_comments(self, since=github.GithubObject.NotSet):
         """
         Warning: this only returns review comments. For normal conversation comments, use get_issue_comments.
 
         :calls: `GET /repos/:owner/:repo/pulls/:number/comments <http://developer.github.com/v3/pulls/comments>`_
+        :param since: datetime.datetime format YYYY-MM-DDTHH:MM:SSZ
         :rtype: :class:`github.PaginatedList.PaginatedList` of :class:`github.PullRequestComment.PullRequestComment`
         """
-        return self.get_review_comments()
+        return self.get_review_comments(since)
 
     def get_review_comments(self, since=github.GithubObject.NotSet):
         """
